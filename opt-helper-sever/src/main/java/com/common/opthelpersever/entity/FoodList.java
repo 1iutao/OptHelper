@@ -14,6 +14,6 @@ import java.util.Date;
 public class FoodList implements Serializable {
     private Integer id;
     private String name;
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
 }

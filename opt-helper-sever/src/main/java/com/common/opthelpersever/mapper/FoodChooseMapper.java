@@ -13,4 +13,8 @@ import java.util.List;
 @Mapper
 public interface FoodChooseMapper {
     List<FoodList> queryFoodList();
+
+    int addFoodList(FoodList foodList);
+
+    List<FoodList> queryListByName(FoodList foodList);
 }

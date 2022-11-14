@@ -5,10 +5,12 @@ import com.common.opthelpersever.entity.FoodList;
 import com.common.opthelpersever.service.FoodChooseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
  * @Description 食品选择控制类
  **/
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/foodChoose")
 public class FoodChooseController {
     @Autowired
@@ -25,13 +27,24 @@ public class FoodChooseController {
 
     @RequestMapping("/queryFoodList")
     public ResponseResult queryFoodList() {
-        log.debug("FoodChooseController ==>queryFoodList() params : {}");
 
         List<FoodList> foodList = foodChooseService.queryFoodList();
         if (foodList != null) {
-            return ResponseResult.success("查询成功！");
+            return ResponseResult.list(foodList);
         } else {
-            return ResponseResult.error("查询无结果");
+            return ResponseResult.error("查询无结果!");
+        }
+    }
+
+    @RequestMapping("/addFoodList")
+    public ResponseResult addFoodList(@RequestParam Map<String, String> params) {
+        log.debug("FoodChooseController ==>addFoodList() params : {}", params);
+
+        int addResult = foodChooseService.addFoodList(params);
+        if (addResult == 0) {
+            return ResponseResult.error("新增失败！");
+        } else {
+            return ResponseResult.success("新增成功！");
         }
     }
 

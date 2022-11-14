@@ -3,6 +3,7 @@ package com.common.opthelpersever.service;
 import com.common.opthelpersever.entity.FoodList;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author : liutao（eonslt@163.com）
@@ -11,4 +12,6 @@ import java.util.List;
  **/
 public interface FoodChooseService {
     List<FoodList> queryFoodList();
+
+    int addFoodList(Map<String, String> params);
 }

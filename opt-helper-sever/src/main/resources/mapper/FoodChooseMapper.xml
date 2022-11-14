@@ -14,4 +14,19 @@
         select *
         from food_list;
     </select>
+<!--    新增食品-->
+    <insert id="addFoodList" parameterType="com.common.opthelpersever.entity.FoodList">
+        insert into food_list (name, create_time, ipdate_time)
+        values (#{name, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR},)
+    </insert>
+<!--    通过名称查询-->
+    <select id="queryListByName" resultMap="foodListResultMap" parameterType="com.common.opthelpersever.entity.FoodList">
+        select name
+        from food_list
+        <where>
+            <if test="name != null">
+                and name = #{name, jdbcType = VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

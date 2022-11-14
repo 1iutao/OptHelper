@@ -1,0 +1,22 @@
+package com.common.opthelpersever.config;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * @Author : liutao（eonslt@163.com）
+ * @Date : 2022/11/14
+ * @Description 日期公共类
+ **/
+public class DateConfig {
+
+    /**
+     * 当前时间
+     * @return now
+     */
+    public static String now() {
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        return simpleDateFormat.format(now);
+    }
+}
