@@ -1,9 +1,9 @@
-package com.common.opthelpersever.config;
+package com.common.opthelpersever.exception;
 
 /**
  * @Author : liutao（eonslt@163.com）
  * @Date : 2022/11/14
- * @Description 异常类
+ * @Description 枚举异常类
  **/
 public enum SeverError {
 

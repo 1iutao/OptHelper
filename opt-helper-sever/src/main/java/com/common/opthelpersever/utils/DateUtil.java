@@ -1,4 +1,4 @@
-package com.common.opthelpersever.config;
+package com.common.opthelpersever.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,9 +6,9 @@ import java.util.Date;
 /**
  * @Author : liutao（eonslt@163.com）
  * @Date : 2022/11/14
- * @Description 日期公共类
+ * @Description 日期工具类
  **/
-public class DateConfig {
+public class DateUtil {
 
     /**
      * 当前时间

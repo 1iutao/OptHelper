@@ -1,6 +1,6 @@
 package com.common.opthelpersever.controller;
 
-import com.common.opthelpersever.config.ResponseResult;
+import com.common.opthelpersever.ResponseResult;
 import com.common.opthelpersever.entity.FoodList;
 import com.common.opthelpersever.service.FoodChooseService;
 import lombok.extern.slf4j.Slf4j;
