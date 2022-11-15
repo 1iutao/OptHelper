@@ -6,10 +6,12 @@ import com.common.opthelpersever.exception.SeverException;
 import com.common.opthelpersever.entity.FoodList;
 import com.common.opthelpersever.mapper.FoodChooseMapper;
 import com.common.opthelpersever.service.FoodChooseService;
+import com.common.opthelpersever.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +24,30 @@ import java.util.Map;
 public class FoodChooseServiceImpl implements FoodChooseService {
     @Autowired
     private FoodChooseMapper foodChooseMapper;
-
+    @Autowired
+    private RedisUtil redisUtil;
     String name = "name";
+
+    /**
+     * 查询
+     * @return foodList
+     */
     @Override
     public List<FoodList> queryFoodList() {
-        return foodChooseMapper.queryFoodList();
+
+        String cacheKey = "foodList";
+        String cacheData = (String) redisUtil.get(cacheKey);
+        if (cacheData != null) {
+            List foodList = Arrays.asList(cacheData);
+            return foodList;
+        } else {
+            List<FoodList> list = foodChooseMapper.queryFoodList();
+            String sList = list.toString();
+            redisUtil.set("foodList", sList);
+            List foodList = Arrays.asList(sList);
+
+            return foodList;
+        }
     }
 
     @Override

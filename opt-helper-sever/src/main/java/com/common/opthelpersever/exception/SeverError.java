@@ -18,6 +18,15 @@ public enum SeverError {
         this.errorMsg = errorMsg;
     }
 
+    public static SeverError getMsg(String errorCode) {
+        for (SeverError value : SeverError.values()) {
+            if (errorCode.equals(value.getErrorCode())) {
+                return value;
+            }
+        }
+        return UNKNOW;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }
