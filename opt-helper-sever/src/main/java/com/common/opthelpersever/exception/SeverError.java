@@ -1,4 +1,4 @@
-package com.common.opthelpersever.config;
+package com.common.opthelpersever.exception;
 
 /**
  * @Author : liutao（eonslt@163.com）

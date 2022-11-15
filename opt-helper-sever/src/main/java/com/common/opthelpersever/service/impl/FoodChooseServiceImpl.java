@@ -1,8 +1,8 @@
 package com.common.opthelpersever.service.impl;
 
-import com.common.opthelpersever.config.DateConfig;
-import com.common.opthelpersever.config.SeverError;
-import com.common.opthelpersever.config.SeverException;
+import com.common.opthelpersever.utils.DateUtil;
+import com.common.opthelpersever.exception.SeverError;
+import com.common.opthelpersever.exception.SeverException;
 import com.common.opthelpersever.entity.FoodList;
 import com.common.opthelpersever.mapper.FoodChooseMapper;
 import com.common.opthelpersever.service.FoodChooseService;
@@ -38,8 +38,8 @@ public class FoodChooseServiceImpl implements FoodChooseService {
         int check = nameCheck(params);
         if (check == 0) {
             foodList.setName(params.get(name));
-            foodList.setCreateTime(DateConfig.now());
-            foodList.setUpdateTime(DateConfig.now());
+            foodList.setCreateTime(DateUtil.now());
+            foodList.setUpdateTime(DateUtil.now());
             int addResult = foodChooseMapper.addFoodList(foodList);
             return addResult;
         } else {

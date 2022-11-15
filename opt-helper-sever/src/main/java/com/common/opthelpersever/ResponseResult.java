@@ -1,4 +1,4 @@
-package com.common.opthelpersever.config;
+package com.common.opthelpersever;
 
 import java.util.HashMap;
 import java.util.List;
