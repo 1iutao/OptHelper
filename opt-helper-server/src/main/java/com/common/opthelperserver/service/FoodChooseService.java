@@ -1,6 +1,6 @@
-package com.common.opthelpersever.service;
+package com.common.opthelperserver.service;
 
-import com.common.opthelpersever.entity.FoodList;
+import com.common.opthelperserver.entity.FoodList;
 
 import java.util.List;
 import java.util.Map;

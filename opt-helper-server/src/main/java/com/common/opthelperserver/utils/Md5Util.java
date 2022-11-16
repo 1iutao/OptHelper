@@ -1,4 +1,4 @@
-package com.common.opthelpersever.utils;
+package com.common.opthelperserver.utils;
 
 import org.springframework.util.DigestUtils;
 

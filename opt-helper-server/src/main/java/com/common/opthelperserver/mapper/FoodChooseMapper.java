@@ -1,6 +1,6 @@
-package com.common.opthelpersever.mapper;
+package com.common.opthelperserver.mapper;
 
-import com.common.opthelpersever.entity.FoodList;
+import com.common.opthelperserver.entity.FoodList;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

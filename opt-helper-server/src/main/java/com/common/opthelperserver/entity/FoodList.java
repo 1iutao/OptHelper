@@ -1,9 +1,8 @@
-package com.common.opthelpersever.entity;
+package com.common.opthelperserver.entity;
 
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Author : liutao（eonslt@163.com）

@@ -1,8 +1,8 @@
-package com.common.opthelpersever.controller;
+package com.common.opthelperserver.controller;
 
-import com.common.opthelpersever.ResponseResult;
-import com.common.opthelpersever.entity.FoodList;
-import com.common.opthelpersever.service.FoodChooseService;
+import com.common.opthelperserver.ResponseResult;
+import com.common.opthelperserver.entity.FoodList;
+import com.common.opthelperserver.service.FoodChooseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

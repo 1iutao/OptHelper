@@ -1,12 +1,12 @@
-package com.common.opthelpersever.service.impl;
+package com.common.opthelperserver.service.impl;
 
-import com.common.opthelpersever.utils.DateUtil;
-import com.common.opthelpersever.exception.ServerError;
-import com.common.opthelpersever.exception.ServerException;
-import com.common.opthelpersever.entity.FoodList;
-import com.common.opthelpersever.mapper.FoodChooseMapper;
-import com.common.opthelpersever.service.FoodChooseService;
-import com.common.opthelpersever.utils.RedisUtil;
+import com.common.opthelperserver.utils.DateUtil;
+import com.common.opthelperserver.exception.ServerError;
+import com.common.opthelperserver.exception.ServerException;
+import com.common.opthelperserver.entity.FoodList;
+import com.common.opthelperserver.mapper.FoodChooseMapper;
+import com.common.opthelperserver.service.FoodChooseService;
+import com.common.opthelperserver.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
