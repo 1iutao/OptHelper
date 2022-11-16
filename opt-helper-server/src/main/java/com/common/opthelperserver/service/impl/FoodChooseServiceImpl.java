@@ -39,7 +39,6 @@ public class FoodChooseServiceImpl implements FoodChooseService {
         String cacheData = (String) redisUtil.get(cacheKey);
         if (cacheData != null) {
             List foodList = Arrays.asList(cacheData);
-            System.out.println("有缓存");
             return foodList;
         } else {
             List<FoodList> list = foodChooseMapper.queryFoodList();
