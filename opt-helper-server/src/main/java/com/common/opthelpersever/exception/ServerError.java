@@ -5,7 +5,7 @@ package com.common.opthelpersever.exception;
  * @Date : 2022/11/14
  * @Description 枚举异常类
  **/
-public enum SeverError {
+public enum ServerError {
 
     UNKNOW("000", "未知异常"),
     PARAMETER_CANNOT_BE_NULL("001", "参数不能为空");
@@ -13,13 +13,13 @@ public enum SeverError {
     private final String errorCode;
     private final String errorMsg;
 
-    private SeverError(String errorCode, String errorMsg) {
+    private ServerError(String errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }
 
-    public static SeverError getMsg(String errorCode) {
-        for (SeverError value : SeverError.values()) {
+    public static ServerError getMsg(String errorCode) {
+        for (ServerError value : ServerError.values()) {
             if (errorCode.equals(value.getErrorCode())) {
                 return value;
             }

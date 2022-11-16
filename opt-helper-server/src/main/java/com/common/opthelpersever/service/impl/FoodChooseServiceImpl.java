@@ -1,8 +1,8 @@
 package com.common.opthelpersever.service.impl;
 
 import com.common.opthelpersever.utils.DateUtil;
-import com.common.opthelpersever.exception.SeverError;
-import com.common.opthelpersever.exception.SeverException;
+import com.common.opthelpersever.exception.ServerError;
+import com.common.opthelpersever.exception.ServerException;
 import com.common.opthelpersever.entity.FoodList;
 import com.common.opthelpersever.mapper.FoodChooseMapper;
 import com.common.opthelpersever.service.FoodChooseService;
@@ -55,7 +55,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     public int addFoodList(Map<String, String> params) {
         FoodList foodList = new FoodList();
         if (StringUtils.isEmpty(params.get(name))) {
-            throw new SeverException(SeverError.PARAMETER_CANNOT_BE_NULL, "name");
+            throw new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "name");
         }
         int check = nameCheck(params);
         if (check == 0) {
