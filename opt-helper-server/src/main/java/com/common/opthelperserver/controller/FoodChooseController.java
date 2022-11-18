@@ -48,4 +48,16 @@ public class FoodChooseController {
         }
     }
 
+    @RequestMapping("/queryRandomFoodList")
+    public ResponseResult queryRandomFoodList(int n) {
+
+        List<FoodList> foodList = foodChooseService.queryRandomFoodList(n);
+        if (foodList != null) {
+            return ResponseResult.list(foodList);
+        } else {
+            return ResponseResult.error("查询无结果!");
+        }
+    }
+
+
 }

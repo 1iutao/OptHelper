@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author : liutao（eonslt@163.com）
@@ -22,6 +20,9 @@ import java.util.Map;
  **/
 @Service
 public class FoodChooseServiceImpl implements FoodChooseService {
+
+    static List<Integer> mBaseList = null;
+
     @Autowired
     private FoodChooseMapper foodChooseMapper;
     @Autowired
@@ -48,6 +49,38 @@ public class FoodChooseServiceImpl implements FoodChooseService {
 
             return foodList;
         }
+    }
+
+    /**
+     * 查询
+     * @return foodList
+     */
+    @Override
+    public List<FoodList> queryRandomFoodList(int n) {
+//        String cacheKey = "foodList:random";
+//        String cacheData = (String) redisUtil.get(cacheKey);
+        List<FoodList> foodList = foodChooseMapper.queryFoodList();
+        List<FoodList> res = new ArrayList<>();
+        List<Integer> level = genUniqueRandomVal(0,n-1, n);
+        for (int x : level) {
+            res.add(foodList.get(x-1));
+        }
+//        if (cacheData != null) {
+//            List foodList = Arrays.asList(cacheData);
+//            for (int x : level) {
+//                res.add(foodList.get(x-1));
+//            }
+//
+//        } else {
+//            List<FoodList> list = foodChooseMapper.queryFoodList();
+//            String sList = list.toString();
+//            redisUtil.set("foodList", sList);
+//            List foodList = Arrays.asList(sList);
+//
+//        }
+
+        return res;
+
     }
 
     @Override
@@ -82,4 +115,40 @@ public class FoodChooseServiceImpl implements FoodChooseService {
             return 1;
         }
     }
+
+
+
+    public List<Integer> genUniqueRandomVal(int minVal, int topVal, int cnt){
+        int index;
+        int size = topVal-minVal+1;
+        if (minVal >= topVal){
+            return null;
+        }
+
+        if (cnt>size){
+            return null;
+        }
+
+        if (null == mBaseList){
+            mBaseList = new ArrayList<Integer>();
+        }
+
+        //初始化基本数据集合
+        mBaseList.clear();
+        for (int i = minVal; i <= topVal; i++){
+            mBaseList.add(i);
+        }
+
+        List<Integer> uniqueValList = new ArrayList<Integer>();//无重复的数据集合
+        Random random = new Random();
+        for (; cnt > 0;){
+            index = random.nextInt(size);//范围[0, size)
+            uniqueValList.add(mBaseList.get(index));//添加到数据集合
+            mBaseList.remove(index);//基本数据集合移除已经加到uniqueValList的数据，这样子就不会重复
+            cnt--;
+            size--;
+        }
+        return uniqueValList;
+    }
 }
+
