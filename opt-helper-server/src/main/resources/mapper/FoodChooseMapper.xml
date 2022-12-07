@@ -5,7 +5,7 @@
 <!--    食品列表信息-->
     <resultMap id="foodListResultMap" type="com.common.opthelperserver.entity.FoodList">
         <id column="id" property="id"/>
-        <result column="name" property="name"/>
+        <result column="food_name" property="fooName"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
@@ -16,16 +16,16 @@
     </select>
 <!--    新增食品-->
     <insert id="addFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
-        insert into food_list (name, create_time, update_time)
-        values (#{name, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR},)
+        insert into food_list (food_name, create_time, update_time)
+        values (#{foodName, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR},)
     </insert>
 <!--    通过名称查询-->
     <select id="queryListByName" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.FoodList">
-        select name
+        select food_name
         from food_list
         <where>
-            <if test="name != null">
-                and name = #{name, jdbcType = VARCHAR}
+            <if test="foodName != null">
+                and food_name = #{foodName, jdbcType = VARCHAR}
             </if>
         </where>
     </select>

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Data
 public class FoodList implements Serializable {
     private Integer id;
-    private String name;
+    private String foodName;
     private String createTime;
     private String updateTime;
 }
