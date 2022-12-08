@@ -27,7 +27,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     private FoodChooseMapper foodChooseMapper;
     @Autowired
     private RedisUtil redisUtil;
-    String name = "name";
+    String foodName = "foodName";
 
     /**
      * 查询
@@ -86,12 +86,12 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     @Override
     public int addFoodList(Map<String, String> params) {
         FoodList foodList = new FoodList();
-        if (StringUtils.isEmpty(params.get(name))) {
+        if (StringUtils.isEmpty(params.get(foodName))) {
             throw new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "name");
         }
         int check = nameCheck(params);
         if (check == 0) {
-            foodList.setName(params.get(name));
+            foodList.setFoodName(params.get(foodName));
             foodList.setCreateTime(DateUtil.now());
             foodList.setUpdateTime(DateUtil.now());
             int addResult = foodChooseMapper.addFoodList(foodList);
@@ -107,7 +107,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
      */
     private int nameCheck(Map<String, String> params) {
         FoodList foodList = new FoodList();
-        foodList.setName(params.get(name));
+        foodList.setFoodName(params.get(foodName));
         List<FoodList> queryListByName =foodChooseMapper.queryListByName(foodList);
         if (queryListByName.size() == 0) {
             return 0;
