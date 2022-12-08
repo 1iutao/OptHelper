@@ -16,7 +16,7 @@ public interface FoodChooseService {
     List<FoodList> queryFoodList();
 
     // 随机查询n个
-    public List<FoodList> queryRandomFoodList(int n);
+    public List<FoodList> queryRandomFoodList(Integer n);
 
     int addFoodList(Map<String, String> params);
 }

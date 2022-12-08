@@ -56,29 +56,16 @@ public class FoodChooseServiceImpl implements FoodChooseService {
      * @return foodList
      */
     @Override
-    public List<FoodList> queryRandomFoodList(int n) {
+    public List<FoodList> queryRandomFoodList(Integer n) {
 //        String cacheKey = "foodList:random";
 //        String cacheData = (String) redisUtil.get(cacheKey);
         List<FoodList> foodList = foodChooseMapper.queryFoodList();
         List<FoodList> res = new ArrayList<>();
-        List<Integer> level = genUniqueRandomVal(0,n-1, n);
+        List<Integer> level = getNumber(0,foodList.size()-1, n);
         for (int x : level) {
-            res.add(foodList.get(x-1));
-        }
-//        if (cacheData != null) {
-//            List foodList = Arrays.asList(cacheData);
-//            for (int x : level) {
-//                res.add(foodList.get(x-1));
-//            }
-//
-//        } else {
-//            List<FoodList> list = foodChooseMapper.queryFoodList();
-//            String sList = list.toString();
-//            redisUtil.set("foodList", sList);
-//            List foodList = Arrays.asList(sList);
-//
-//        }
+            res.add(foodList.get(x));
 
+        }
         return res;
 
     }
@@ -116,39 +103,24 @@ public class FoodChooseServiceImpl implements FoodChooseService {
         }
     }
 
-
-
-    public List<Integer> genUniqueRandomVal(int minVal, int topVal, int cnt){
-        int index;
-        int size = topVal-minVal+1;
-        if (minVal >= topVal){
-            return null;
+    public List<Integer> getNumber(Integer start,Integer end,Integer n){
+        if(start > end){
+            throw new RuntimeException("开始数字不得大于结束数字");
         }
-
-        if (cnt>size){
-            return null;
+        if( (end-start) < n){
+            throw new RuntimeException("范围内的数字个数不得小于取出的数量");
         }
-
-        if (null == mBaseList){
-            mBaseList = new ArrayList<Integer>();
+        List<Integer> finalNumber = new ArrayList<>();
+        while (finalNumber.size() < n){
+            Random random = new Random();
+            Integer randomNumber = random.nextInt(end-start+1)+start;
+            if (!finalNumber.contains(randomNumber)) {
+                finalNumber.add(randomNumber);
+            }
         }
-
-        //初始化基本数据集合
-        mBaseList.clear();
-        for (int i = minVal; i <= topVal; i++){
-            mBaseList.add(i);
-        }
-
-        List<Integer> uniqueValList = new ArrayList<Integer>();//无重复的数据集合
-        Random random = new Random();
-        for (; cnt > 0;){
-            index = random.nextInt(size);//范围[0, size)
-            uniqueValList.add(mBaseList.get(index));//添加到数据集合
-            mBaseList.remove(index);//基本数据集合移除已经加到uniqueValList的数据，这样子就不会重复
-            cnt--;
-            size--;
-        }
-        return uniqueValList;
+        return  finalNumber;
     }
+
+
 }
 
