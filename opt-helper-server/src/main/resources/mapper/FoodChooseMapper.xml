@@ -5,7 +5,7 @@
 <!--    食品列表信息-->
     <resultMap id="foodListResultMap" type="com.common.opthelperserver.entity.FoodList">
         <id column="id" property="id"/>
-        <result column="food_name" property="fooName"/>
+        <result column="food_name" property="foodName"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
