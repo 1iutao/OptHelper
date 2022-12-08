@@ -17,7 +17,7 @@
 <!--    新增食品-->
     <insert id="addFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
         insert into food_list (food_name, create_time, update_time)
-        values (#{foodName, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR},)
+        values (#{foodName, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR})
     </insert>
 <!--    通过名称查询-->
     <select id="queryListByName" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.FoodList">
