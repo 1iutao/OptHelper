@@ -38,16 +38,15 @@ public class FoodChooseServiceImpl implements FoodChooseService {
 
         String cacheKey = "foodList";
         String cacheData = (String) redisUtil.get(cacheKey);
-        if (cacheData != null) {
-            List foodList = Arrays.asList(cacheData);
+        if (redisUtil.hasKey(cacheKey)) {
+            List foodList = Arrays.asList(cacheData.toCharArray());
             return foodList;
         } else {
             List<FoodList> list = foodChooseMapper.queryFoodList();
             String sList = list.toString();
-            redisUtil.set("foodList", sList);
-            List foodList = Arrays.asList(sList);
+            redisUtil.set("foodList", sList, 600);
 
-            return foodList;
+            return list;
         }
     }
 
