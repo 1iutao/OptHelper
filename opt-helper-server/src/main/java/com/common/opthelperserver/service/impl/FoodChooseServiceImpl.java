@@ -7,6 +7,8 @@ import com.common.opthelperserver.entity.FoodList;
 import com.common.opthelperserver.mapper.FoodChooseMapper;
 import com.common.opthelperserver.service.FoodChooseService;
 import com.common.opthelperserver.utils.RedisUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -21,13 +23,18 @@ import java.util.*;
 @Service
 public class FoodChooseServiceImpl implements FoodChooseService {
 
-    static List<Integer> mBaseList = null;
+    private static final Logger logger = LoggerFactory.getLogger(FoodChooseService.class);
 
     @Autowired
     private FoodChooseMapper foodChooseMapper;
     @Autowired
     private RedisUtil redisUtil;
+
+    private Integer FAILURE = 999;
+    private Integer REPEAT = 777;
+
     String foodName = "foodName";
+    String id = "id";
 
     /**
      * 查询
@@ -44,7 +51,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
         } else {
             List<FoodList> list = foodChooseMapper.queryFoodList();
             String sList = list.toString();
-            redisUtil.set("foodList", sList, 600);
+            redisUtil.set("foodList", sList, 300);
 
             return list;
         }
@@ -73,7 +80,8 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     public int addFoodList(Map<String, String> params) {
         FoodList foodList = new FoodList();
         if (StringUtils.isEmpty(params.get(foodName))) {
-            throw new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "name");
+            logger.error("食品名称不能为空");
+            throw new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "foodName");
         }
         int check = nameCheck(params);
         if (check == 0) {
@@ -85,6 +93,53 @@ public class FoodChooseServiceImpl implements FoodChooseService {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public int updateFoodList(Map<String, String> params) {
+        if (StringUtils.isEmpty(params.get(id))) {
+            logger.error("食品id不能为空");
+            throw  new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, id);
+        }
+        if (StringUtils.isEmpty(params.get(foodName))) {
+            logger.error("食品名称不能为空");
+            throw  new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "foodName");
+        }
+        FoodList foodList = new FoodList();
+        foodList.setFoodName(params.get(foodName));
+        foodList.setId(Integer.valueOf(params.get(id)));
+        foodList.setUpdateTime(DateUtil.now());
+
+        List<FoodList> queryListById =foodChooseMapper.queryListById(foodList);
+        if (queryListById.size() == 0) {
+            return FAILURE;
+        } else if (queryListById.size() == 1) {
+            FoodList foodList1 = queryListById.get(0);
+            if (foodList1.getFoodName().equals(params.get(foodName))) {
+                return REPEAT;
+            } else {
+                int result = foodChooseMapper.updateFoodList(foodList);
+                return result;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteFoodList(Map<String, String> params) {
+        if (StringUtils.isEmpty(params.get(id))) {
+            logger.error("食品id不能为空");
+            throw  new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, id);
+        }
+        FoodList foodList = new FoodList();
+        foodList.setId(Integer.valueOf(params.get(id)));
+        List<FoodList> queryListById = foodChooseMapper.queryListById(foodList);
+        if (queryListById.size() != 0) {
+            foodList.setId(Integer.valueOf(params.get(id)));
+            int result = foodChooseMapper.deleteFoodList(foodList);
+            return result;
+        }
+        return FAILURE;
     }
 
     /**
@@ -119,7 +174,6 @@ public class FoodChooseServiceImpl implements FoodChooseService {
         }
         return  finalNumber;
     }
-
 
 }
 

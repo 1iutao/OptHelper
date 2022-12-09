@@ -10,10 +10,10 @@ public class ServerException extends RuntimeException {
     private final String errorCode;
     private final String errorMsg;
 
-    public ServerException(ServerError error, String name) {
-        super((error.getErrorMsg()));
+    public ServerException(ServerError error, String errorMsg) {
+        super(error.getErrorMsg() +"," + "接口返回：["+errorMsg+"]");
         this.errorCode = error.getErrorCode();
-        this.errorMsg = error.getErrorMsg();
+        this.errorMsg = error.getErrorMsg() +"," + "接口返回：["+errorMsg+"]";
     }
 
     public String getErrorCode() {

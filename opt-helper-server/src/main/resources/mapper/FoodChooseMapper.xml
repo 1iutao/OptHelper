@@ -9,16 +9,19 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
+
 <!--    查询列表-->
     <select id="queryFoodList" resultType="com.common.opthelperserver.entity.FoodList" resultMap="foodListResultMap">
         select *
         from food_list;
     </select>
+
 <!--    新增食品-->
     <insert id="addFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
         insert into food_list (food_name, create_time, update_time)
         values (#{foodName, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR})
     </insert>
+
 <!--    通过名称查询-->
     <select id="queryListByName" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.FoodList">
         select food_name
@@ -29,4 +32,30 @@
             </if>
         </where>
     </select>
+
+<!--    通过id查询-->
+    <select id="queryListById" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.FoodList">
+        select *
+        from food_list
+        <where>
+            <if test="id != null">
+                and id = #{id, jdbcType = BIGINT}
+            </if>
+        </where>
+    </select>
+
+<!--    修改食品名称-->
+    <update id="updateFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
+        update food_list
+        set food_name = #{foodName, jdbcType = VARCHAR},
+            update_time = #{updateTime, jdbcType = VARCHAR}
+        where id = #{id, jdbcType = BIGINT}
+    </update>
+
+<!--    删除食品列表-->
+    <delete id="deleteFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
+        delete
+        from food_list
+        where id = #{id, jdbcType = BIGINT}
+    </delete>
 </mapper>

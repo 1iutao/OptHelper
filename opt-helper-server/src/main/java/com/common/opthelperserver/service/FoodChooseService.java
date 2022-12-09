@@ -12,11 +12,37 @@ import java.util.Map;
  **/
 public interface FoodChooseService {
 
-    // 查询所有
+    /**
+     * 查询所有
+     * @return foodList
+     */
     List<FoodList> queryFoodList();
 
-    // 随机查询n个
+    /**
+     * 随机查询n个
+     * @param n
+     * @return foodList
+     */
     public List<FoodList> queryRandomFoodList(Integer n);
 
+    /**
+     * 新增
+     * @param params
+     * @return int
+     */
     int addFoodList(Map<String, String> params);
+
+    /**
+     * 修改
+     * @param params
+     * @return int
+     */
+    int updateFoodList(Map<String, String> params);
+
+    /**
+     * 删除
+     * @param params
+     * @return int
+     */
+    int deleteFoodList(Map<String, String> params);
 }

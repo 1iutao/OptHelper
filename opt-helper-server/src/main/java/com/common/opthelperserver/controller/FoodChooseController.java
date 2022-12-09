@@ -20,11 +20,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/foodChoose")
 public class FoodChooseController {
+
     @Autowired
     private FoodChooseService foodChooseService;
 
+    private Integer FAILURE = 999;
+    private Integer REPEAT = 777;
     @RequestMapping("/queryFoodList")
     public ResponseResult queryFoodList() {
+        log.debug("FoodChooseController ==>queryFoodList()");
 
         List<FoodList> foodList = foodChooseService.queryFoodList();
         if (foodList != null) {
@@ -54,6 +58,33 @@ public class FoodChooseController {
             return ResponseResult.list(foodList);
         } else {
             return ResponseResult.error("查询无结果!");
+        }
+    }
+
+    @RequestMapping("/updateFoodList")
+    public ResponseResult updateFoodList(@RequestParam Map<String, String> params) {
+        log.debug("FoodChooseController ==>updateFoodList() params : {}", params);
+        int result = foodChooseService.updateFoodList(params);
+        if (result == FAILURE) {
+            return ResponseResult.error("修改失败！");
+        } else if (result == 0) {
+            return ResponseResult.error("修改失败！");
+        } else if (result == REPEAT) {
+            return ResponseResult.error("修改失败，名称重复！");
+        } else {
+            return ResponseResult.success("修改成功！");
+        }
+    }
+
+    @RequestMapping("/deleteFoodList")
+    public ResponseResult deleteFoodList(@RequestParam Map<String, String> params) {
+        log.debug("FoodChooseController ==>deleteFoodList() params : {}", params);
+
+        int result = foodChooseService.deleteFoodList(params);
+        if (result == FAILURE) {
+            return ResponseResult.error("删除失败！");
+        } else {
+            return ResponseResult.success("删除成功！");
         }
     }
 
