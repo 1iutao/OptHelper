@@ -4,7 +4,7 @@ import com.common.opthelperserver.utils.DateUtil;
 import com.common.opthelperserver.exception.ServerError;
 import com.common.opthelperserver.exception.ServerException;
 import com.common.opthelperserver.entity.FoodList;
-import com.common.opthelperserver.mapper.FoodChooseMapper;
+import com.common.opthelperserver.dao.FoodChooseMapper;
 import com.common.opthelperserver.service.FoodChooseService;
 import com.common.opthelperserver.utils.RedisUtil;
 import org.slf4j.Logger;

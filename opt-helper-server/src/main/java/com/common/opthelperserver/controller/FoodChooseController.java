@@ -23,14 +23,13 @@ public class FoodChooseController {
 
     @Autowired
     private FoodChooseService foodChooseService;
-
     private Integer FAILURE = 999;
     private Integer REPEAT = 777;
     @RequestMapping("/queryFoodList")
     public ResponseResult queryFoodList() {
-        log.debug("FoodChooseController ==>queryFoodList()");
 
         List<FoodList> foodList = foodChooseService.queryFoodList();
+        log.info("FoodChooseController ==>queryFoodList() result : {}", foodList);
         if (foodList != null) {
             return ResponseResult.list(foodList);
         } else {
@@ -40,7 +39,7 @@ public class FoodChooseController {
 
     @RequestMapping("/addFoodList")
     public ResponseResult addFoodList(@RequestParam Map<String, String> params) {
-        log.debug("FoodChooseController ==>addFoodList() params : {}", params);
+        log.info("FoodChooseController ==>addFoodList() params : {}", params);
 
         int addResult = foodChooseService.addFoodList(params);
         if (addResult == 0) {
@@ -52,8 +51,9 @@ public class FoodChooseController {
 
     @RequestMapping("/queryRandomFoodList")
     public ResponseResult queryRandomFoodList(@RequestParam Integer n) {
-        System.out.println("n:=" + n);
+
         List<FoodList> foodList = foodChooseService.queryRandomFoodList(n);
+        log.info("FoodChooseController ==>queryRandomFoodList() result : {}", foodList);
         if (foodList != null) {
             return ResponseResult.list(foodList);
         } else {
@@ -63,7 +63,8 @@ public class FoodChooseController {
 
     @RequestMapping("/updateFoodList")
     public ResponseResult updateFoodList(@RequestParam Map<String, String> params) {
-        log.debug("FoodChooseController ==>updateFoodList() params : {}", params);
+        log.info("FoodChooseController ==>updateFoodList() params : {}", params);
+
         int result = foodChooseService.updateFoodList(params);
         if (result == FAILURE) {
             return ResponseResult.error("修改失败！");
@@ -78,7 +79,7 @@ public class FoodChooseController {
 
     @RequestMapping("/deleteFoodList")
     public ResponseResult deleteFoodList(@RequestParam Map<String, String> params) {
-        log.debug("FoodChooseController ==>deleteFoodList() params : {}", params);
+        log.info("FoodChooseController ==>deleteFoodList() params : {}", params);
 
         int result = foodChooseService.deleteFoodList(params);
         if (result == FAILURE) {
@@ -87,6 +88,5 @@ public class FoodChooseController {
             return ResponseResult.success("删除成功！");
         }
     }
-
 
 }

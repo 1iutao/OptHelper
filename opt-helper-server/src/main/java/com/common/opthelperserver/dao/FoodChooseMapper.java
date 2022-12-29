@@ -1,4 +1,4 @@
-package com.common.opthelperserver.mapper;
+package com.common.opthelperserver.dao;
 
 import com.common.opthelperserver.entity.FoodList;
 import org.apache.ibatis.annotations.Mapper;
