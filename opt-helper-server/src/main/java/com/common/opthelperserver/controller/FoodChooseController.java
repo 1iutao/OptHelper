@@ -43,7 +43,7 @@ public class FoodChooseController {
 
         int addResult = foodChooseService.addFoodList(params);
         if (addResult == 0) {
-            return ResponseResult.error("新增失败！");
+            return ResponseResult.error("新增失败！名称已存在！");
         } else {
             return ResponseResult.success("新增成功！");
         }
@@ -67,7 +67,7 @@ public class FoodChooseController {
 
         int result = foodChooseService.updateFoodList(params);
         if (result == FAILURE) {
-            return ResponseResult.error("修改失败！");
+            return ResponseResult.error("修改失败！不存在此项！");
         } else if (result == 0) {
             return ResponseResult.error("修改失败！");
         } else if (result == REPEAT) {

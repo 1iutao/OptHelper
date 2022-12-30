@@ -58,7 +58,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     }
 
     /**
-     * 查询
+     * 随机查询
      * @return foodList
      */
     @Override
@@ -91,7 +91,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
             int addResult = foodChooseMapper.addFoodList(foodList);
             return addResult;
         } else {
-            return 1;
+            return 0;
         }
     }
 
