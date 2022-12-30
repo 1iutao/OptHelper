@@ -96,6 +96,41 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     }
 
     @Override
+    public int addBatchFoodList(Map<String, String> params) {
+//        FoodList foodList = new FoodList();
+//        if (StringUtils.isEmpty(params.get(foodName))) {
+//            logger.error("食品名称不能为空");
+//            throw new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "foodName");
+//        }
+        int flag = 0;
+        String[] foods = params.get("foodName").split(",");
+        for (String food : foods) {
+            FoodList foodList = new FoodList();
+            int check = nameBatchCheck(food);
+            if (check == 0) {
+                foodList.setFoodName(food);
+                foodList.setCreateTime(DateUtil.now());
+                foodList.setUpdateTime(DateUtil.now());
+                int addResult = foodChooseMapper.addFoodList(foodList);
+                flag = 0;
+            } else {
+                flag = 1;
+            }
+        }
+        return 0;
+//        int check = nameCheck(params);
+//        if (check == 0) {
+//            foodList.setFoodName(params.get(foodName));
+//            foodList.setCreateTime(DateUtil.now());
+//            foodList.setUpdateTime(DateUtil.now());
+//            int addResult = foodChooseMapper.addFoodList(foodList);
+//            return addResult;
+//        } else {
+//            return 1;
+//        }
+    }
+
+    @Override
     public int updateFoodList(Map<String, String> params) {
         if (StringUtils.isEmpty(params.get(id))) {
             logger.error("食品id不能为空");
@@ -149,6 +184,21 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     private int nameCheck(Map<String, String> params) {
         FoodList foodList = new FoodList();
         foodList.setFoodName(params.get(foodName));
+        List<FoodList> queryListByName =foodChooseMapper.queryListByName(foodList);
+        if (queryListByName.size() == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * 新增和修改时名称重复校验
+     * liutao
+     */
+    private int nameBatchCheck(String foodName) {
+        FoodList foodList = new FoodList();
+        foodList.setFoodName(foodName);
         List<FoodList> queryListByName =foodChooseMapper.queryListByName(foodList);
         if (queryListByName.size() == 0) {
             return 0;

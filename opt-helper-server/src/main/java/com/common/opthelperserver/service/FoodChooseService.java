@@ -33,6 +33,13 @@ public interface FoodChooseService {
     int addFoodList(Map<String, String> params);
 
     /**
+     * 批量新增
+     * @param params
+     * @return int
+     */
+    int addBatchFoodList(Map<String, String> params);
+
+    /**
      * 修改
      * @param params
      * @return int

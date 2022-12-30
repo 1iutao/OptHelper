@@ -49,6 +49,18 @@ public class FoodChooseController {
         }
     }
 
+    @RequestMapping("/addBatchFoodList")
+    public ResponseResult addBatchFoodList(@RequestParam Map<String, String> params) {
+        log.info("FoodChooseController ==>addFoodList() params : {}", params);
+
+        int addResult = foodChooseService.addBatchFoodList(params);
+        if (addResult == 0) {
+            return ResponseResult.error("新增失败！");
+        } else {
+            return ResponseResult.success("新增成功！");
+        }
+    }
+
     @RequestMapping("/queryRandomFoodList")
     public ResponseResult queryRandomFoodList(@RequestParam Integer n) {
 
