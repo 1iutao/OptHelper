@@ -1,4 +1,4 @@
-package com.common.opthelperserver;
+package com.common.opthelperserver.utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,16 +37,15 @@ public class ResponseResult extends HashMap<String, Object> {
         return  responseResult;
     }
 
-    public static ResponseResult success(Map<String, List> data) {
+    public static ResponseResult success(Object data) {
         ResponseResult responseResult = new ResponseResult();
         responseResult.put("data", data);
         return responseResult;
     }
 
-    //返回list类型封装
-    public  static ResponseResult list(List list) {
+    public static ResponseResult success(Map<String, Object> map) {
         ResponseResult responseResult = new ResponseResult();
-        responseResult.put("data", list);
+        responseResult.putAll(map);
         return responseResult;
     }
 

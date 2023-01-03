@@ -1,6 +1,6 @@
 package com.common.opthelperserver.controller;
 
-import com.common.opthelperserver.ResponseResult;
+import com.common.opthelperserver.utils.ResponseResult;
 import com.common.opthelperserver.entity.FoodList;
 import com.common.opthelperserver.service.FoodChooseService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class FoodChooseController {
         List<FoodList> foodList = foodChooseService.queryFoodList();
         log.info("FoodChooseController ==>queryFoodList() result : {}", foodList);
         if (foodList != null) {
-            return ResponseResult.list(foodList);
+            return ResponseResult.success(foodList);
         } else {
             return ResponseResult.error("查询无结果!");
         }
@@ -55,7 +55,7 @@ public class FoodChooseController {
         List<FoodList> foodList = foodChooseService.queryRandomFoodList(n);
         log.info("FoodChooseController ==>queryRandomFoodList() result : {}", foodList);
         if (foodList != null) {
-            return ResponseResult.list(foodList);
+            return ResponseResult.success(foodList);
         } else {
             return ResponseResult.error("查询无结果!");
         }

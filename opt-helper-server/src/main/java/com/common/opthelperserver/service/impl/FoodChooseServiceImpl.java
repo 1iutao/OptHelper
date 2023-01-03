@@ -1,5 +1,6 @@
 package com.common.opthelperserver.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.opthelperserver.utils.DateUtil;
 import com.common.opthelperserver.exception.ServerError;
 import com.common.opthelperserver.exception.ServerException;
@@ -44,14 +45,13 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     public List<FoodList> queryFoodList() {
 
         String cacheKey = "foodList";
-        String cacheData = (String) redisUtil.get(cacheKey);
         if (redisUtil.hasKey(cacheKey)) {
-            List foodList = Arrays.asList(cacheData.toCharArray());
-            return foodList;
+            Object cacheData = redisUtil.get(cacheKey);
+            return  JSONObject.parseArray((String) cacheData, FoodList.class);
         } else {
             List<FoodList> list = foodChooseMapper.queryFoodList();
-            String sList = list.toString();
-            redisUtil.set("foodList", sList, 300);
+            String sList = JSONObject.toJSON(list).toString();
+            redisUtil.set("foodList", sList, 200);
 
             return list;
         }
@@ -78,6 +78,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
 
     @Override
     public int addFoodList(Map<String, String> params) {
+        redisUtil.del("foodList");
         FoodList foodList = new FoodList();
         if (StringUtils.isEmpty(params.get(foodName))) {
             logger.error("食品名称不能为空");
@@ -97,6 +98,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
 
     @Override
     public int updateFoodList(Map<String, String> params) {
+        redisUtil.del("foodList");
         if (StringUtils.isEmpty(params.get(id))) {
             logger.error("食品id不能为空");
             throw  new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, id);
@@ -127,6 +129,7 @@ public class FoodChooseServiceImpl implements FoodChooseService {
 
     @Override
     public int deleteFoodList(Map<String, String> params) {
+        redisUtil.del("foodList");
         if (StringUtils.isEmpty(params.get(id))) {
             logger.error("食品id不能为空");
             throw  new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, id);
