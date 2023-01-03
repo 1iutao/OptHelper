@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://43.138.64.174:33070/opt_helper
-    username: DB_root
-    password: Paab7ZYs5tThhJFK
+    username: opt_helper
+    password: bjLpiiCsabBmAAbz
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     database: 0
