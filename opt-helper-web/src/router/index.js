@@ -1,55 +1,26 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import Layout from '@/layout'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
-export const routes = [
+Vue.use(VueRouter)
+
+const routes = [
   {
     path: '/',
-    component: Layout,
-    name: '主页',
-    meta: {
-      title: '主页'
-    }
-    // component: () => import('@/views/home/Index')
+    name: 'home',
+    component: HomeView
   },
   {
-    path: '/one',
-    component: Layout,
-    name: '一级菜单',
-    meta: {
-      title: '菜单一'
-    },
-    // component: () => import('@/views/home/index')
-    children: [
-      {
-        path: '/one1',
-        name: '二级菜单1',
-        meta: {
-          title: '菜单2-1'
-        },
-        component: () => import('@/views/home/Index')
-      },
-      {
-        path: '/one2',
-        name: '二级菜单2',
-        meta: {
-          title: '菜单2-1'
-        },
-        component: () => import('@/views/home/Index')
-      },
-      {
-        path: '/one3',
-        name: '二级菜单3',
-        meta: {
-          title: '菜单2-3'
-        },
-        component: () => import('@/views/home/Index')
-      }
-    ]
+    path: '/about',
+    name: 'about',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
   routes
 })
 

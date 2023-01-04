@@ -1,7 +1,5 @@
-import ElementPlus from 'element-plus'
-import '../element-variables.scss'
-import locale from 'element-plus/lib/locale/lang/zh-cn'
+import Vue from 'vue'
+import Element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
-export default (app) => {
-  app.use(ElementPlus, { locale })
-}
+Vue.use(Element)
