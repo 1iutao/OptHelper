@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.common.opthelperserver.dao.FoodChooseMapper">
+<mapper namespace="com.common.opthelperserver.dao.FoodMapper">
 
 <!--    食品列表信息-->
-    <resultMap id="foodListResultMap" type="com.common.opthelperserver.entity.FoodList">
+    <resultMap id="foodListResultMap" type="com.common.opthelperserver.entity.Food">
         <id column="id" property="id"/>
         <result column="food_name" property="foodName"/>
         <result column="create_time" property="createTime"/>
@@ -11,21 +11,21 @@
     </resultMap>
 
 <!--    查询列表-->
-    <select id="queryFoodList" resultType="com.common.opthelperserver.entity.FoodList" resultMap="foodListResultMap">
+    <select id="queryFoodList" resultType="com.common.opthelperserver.entity.Food" resultMap="foodListResultMap">
         select *
-        from food_list;
+        from food;
     </select>
 
 <!--    新增食品-->
-    <insert id="addFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
-        insert into food_list (food_name, create_time, update_time)
+    <insert id="addFoodList" parameterType="com.common.opthelperserver.entity.Food">
+        insert into food (food_name, create_time, update_time)
         values (#{foodName, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR})
     </insert>
 
 <!--    通过名称查询-->
-    <select id="queryListByName" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.FoodList">
+    <select id="queryListByName" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.Food">
         select food_name
-        from food_list
+        from food
         <where>
             <if test="foodName != null">
                 and food_name = #{foodName, jdbcType = VARCHAR}
@@ -34,9 +34,9 @@
     </select>
 
 <!--    通过id查询-->
-    <select id="queryListById" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.FoodList">
+    <select id="queryListById" resultMap="foodListResultMap" parameterType="com.common.opthelperserver.entity.Food">
         select *
-        from food_list
+        from food
         <where>
             <if test="id != null">
                 and id = #{id, jdbcType = BIGINT}
@@ -45,17 +45,17 @@
     </select>
 
 <!--    修改食品名称-->
-    <update id="updateFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
-        update food_list
+    <update id="updateFoodList" parameterType="com.common.opthelperserver.entity.Food">
+        update food
         set food_name = #{foodName, jdbcType = VARCHAR},
             update_time = #{updateTime, jdbcType = VARCHAR}
         where id = #{id, jdbcType = BIGINT}
     </update>
 
 <!--    删除食品列表-->
-    <delete id="deleteFoodList" parameterType="com.common.opthelperserver.entity.FoodList">
+    <delete id="deleteFoodList" parameterType="com.common.opthelperserver.entity.Food">
         delete
-        from food_list
+        from food
         where id = #{id, jdbcType = BIGINT}
     </delete>
 </mapper>

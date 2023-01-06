@@ -37,6 +37,13 @@ public class ResponseResult extends HashMap<String, Object> {
         return  responseResult;
     }
 
+    public static ResponseResult success(String code, String msg) {
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.put("code", code);
+        responseResult.put("msg", msg);
+        return responseResult;
+    }
+
     public static ResponseResult success(Object data) {
         ResponseResult responseResult = new ResponseResult();
         responseResult.put("data", data);

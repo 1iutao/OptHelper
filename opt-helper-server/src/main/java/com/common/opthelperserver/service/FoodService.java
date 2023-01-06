@@ -1,6 +1,6 @@
 package com.common.opthelperserver.service;
 
-import com.common.opthelperserver.entity.FoodList;
+import com.common.opthelperserver.entity.Food;
 
 import java.util.List;
 import java.util.Map;
@@ -10,20 +10,20 @@ import java.util.Map;
  * @Date : 2022/11/14
  * @Description 食物选择服务类
  **/
-public interface FoodChooseService {
+public interface FoodService {
 
     /**
      * 查询所有
      * @return foodList
      */
-    List<FoodList> queryFoodList();
+    List<Food> queryFoodList();
 
     /**
      * 随机查询n个
      * @param n
      * @return foodList
      */
-    public List<FoodList> queryRandomFoodList(Integer n);
+    public List<Food> queryRandomFoodList(Integer n);
 
     /**
      * 新增

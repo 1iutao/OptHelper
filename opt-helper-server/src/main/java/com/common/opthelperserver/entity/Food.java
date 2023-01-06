@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Description 食物列表实体类
  **/
 @Data
-public class FoodList implements Serializable {
+public class Food implements Serializable {
     private static final long serialVersionUID = 6432622737519356968L;
 
     /**

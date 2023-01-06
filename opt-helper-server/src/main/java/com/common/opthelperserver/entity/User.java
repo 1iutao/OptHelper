@@ -30,6 +30,10 @@ public class User implements Serializable {
      */
     private String phone;
     /**
+     * 邮箱
+     */
+    private String email;
+    /**
      * 权限 0-普通用户 1-管理员
      */
     private String role;
@@ -38,4 +42,15 @@ public class User implements Serializable {
      */
     private String status;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

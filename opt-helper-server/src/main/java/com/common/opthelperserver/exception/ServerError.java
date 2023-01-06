@@ -8,7 +8,9 @@ package com.common.opthelperserver.exception;
 public enum ServerError {
 
     UNKNOW("000", "未知异常"),
-    PARAMETER_CANNOT_BE_NULL("001", "参数不能为空");
+    PARAMETER_CANNOT_BE_NULL("001", "参数不能为空"),
+    USER_IS_NOT_EXIST("002", "用户不存在"),
+    PASSWORD_ERROR("003", "密码错误");
 
     private final String errorCode;
     private final String errorMsg;

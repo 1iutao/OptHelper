@@ -1,6 +1,6 @@
 package com.common.opthelperserver.dao;
 
-import com.common.opthelperserver.entity.FoodList;
+import com.common.opthelperserver.entity.Food;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,45 +11,45 @@ import java.util.List;
  * @Description ...
  **/
 @Mapper
-public interface FoodChooseMapper {
+public interface FoodMapper {
     /**
      * 查询所有
      * @return foodList
      */
-    List<FoodList> queryFoodList();
+    List<Food> queryFoodList();
 
     /**
      * 新增
-     * @param foodList
+     * @param food
      * @return
      */
-    int addFoodList(FoodList foodList);
+    int addFoodList(Food food);
 
     /**
      * 通过名称查询
-     * @param foodList
+     * @param food
      * @return
      */
-    List<FoodList> queryListByName(FoodList foodList);
+    List<Food> queryListByName(Food food);
 
     /**
      * 通过id查询
-     * @param foodList
+     * @param food
      * @return
      */
-    List<FoodList> queryListById(FoodList foodList);
+    List<Food> queryListById(Food food);
 
     /**
      * 修改
-     * @param foodList
+     * @param food
      * @return
      */
-    int updateFoodList(FoodList foodList);
+    int updateFoodList(Food food);
 
     /**
      * 删除
-     * @param foodList
+     * @param food
      * @return
      */
-    int deleteFoodList(FoodList foodList);
+    int deleteFoodList(Food food);
 }

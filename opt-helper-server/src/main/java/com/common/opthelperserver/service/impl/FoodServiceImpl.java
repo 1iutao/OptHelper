@@ -4,9 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.common.opthelperserver.utils.DateUtil;
 import com.common.opthelperserver.exception.ServerError;
 import com.common.opthelperserver.exception.ServerException;
-import com.common.opthelperserver.entity.FoodList;
-import com.common.opthelperserver.dao.FoodChooseMapper;
-import com.common.opthelperserver.service.FoodChooseService;
+import com.common.opthelperserver.entity.Food;
+import com.common.opthelperserver.dao.FoodMapper;
+import com.common.opthelperserver.service.FoodService;
 import com.common.opthelperserver.utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +22,12 @@ import java.util.*;
  * @Description 食物选择实现类
  **/
 @Service
-public class FoodChooseServiceImpl implements FoodChooseService {
+public class FoodServiceImpl implements FoodService {
 
-    private static final Logger logger = LoggerFactory.getLogger(FoodChooseService.class);
+    private static final Logger logger = LoggerFactory.getLogger(FoodService.class);
 
     @Autowired
-    private FoodChooseMapper foodChooseMapper;
+    private FoodMapper foodMapper;
     @Autowired
     private RedisUtil redisUtil;
 
@@ -42,14 +42,14 @@ public class FoodChooseServiceImpl implements FoodChooseService {
      * @return foodList
      */
     @Override
-    public List<FoodList> queryFoodList() {
+    public List<Food> queryFoodList() {
 
         String cacheKey = "foodList";
         if (redisUtil.hasKey(cacheKey)) {
             Object cacheData = redisUtil.get(cacheKey);
-            return  JSONObject.parseArray((String) cacheData, FoodList.class);
+            return  JSONObject.parseArray((String) cacheData, Food.class);
         } else {
-            List<FoodList> list = foodChooseMapper.queryFoodList();
+            List<Food> list = foodMapper.queryFoodList();
             String sList = JSONObject.toJSON(list).toString();
             redisUtil.set("foodList", sList, 200);
 
@@ -62,14 +62,13 @@ public class FoodChooseServiceImpl implements FoodChooseService {
      * @return foodList
      */
     @Override
-    public List<FoodList> queryRandomFoodList(Integer n) {
-//        String cacheKey = "foodList:random";
-//        String cacheData = (String) redisUtil.get(cacheKey);
-        List<FoodList> foodList = foodChooseMapper.queryFoodList();
-        List<FoodList> res = new ArrayList<>();
-        List<Integer> level = getNumber(0,foodList.size()-1, n);
+    public List<Food> queryRandomFoodList(Integer n) {
+
+        List<Food> food = foodMapper.queryFoodList();
+        List<Food> res = new ArrayList<>();
+        List<Integer> level = getNumber(0, food.size()-1, n);
         for (int x : level) {
-            res.add(foodList.get(x));
+            res.add(food.get(x));
 
         }
         return res;
@@ -79,17 +78,17 @@ public class FoodChooseServiceImpl implements FoodChooseService {
     @Override
     public int addFoodList(Map<String, String> params) {
         redisUtil.del("foodList");
-        FoodList foodList = new FoodList();
+        Food food = new Food();
         if (StringUtils.isEmpty(params.get(foodName))) {
             logger.error("食品名称不能为空");
             throw new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "foodName");
         }
         int check = nameCheck(params);
         if (check == 0) {
-            foodList.setFoodName(params.get(foodName));
-            foodList.setCreateTime(DateUtil.now());
-            foodList.setUpdateTime(DateUtil.now());
-            int addResult = foodChooseMapper.addFoodList(foodList);
+            food.setFoodName(params.get(foodName));
+            food.setCreateTime(DateUtil.now());
+            food.setUpdateTime(DateUtil.now());
+            int addResult = foodMapper.addFoodList(food);
             return addResult;
         } else {
             return 0;
@@ -107,20 +106,20 @@ public class FoodChooseServiceImpl implements FoodChooseService {
             logger.error("食品名称不能为空");
             throw  new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, "foodName");
         }
-        FoodList foodList = new FoodList();
-        foodList.setFoodName(params.get(foodName));
-        foodList.setId(Integer.valueOf(params.get(id)));
-        foodList.setUpdateTime(DateUtil.now());
+        Food food = new Food();
+        food.setFoodName(params.get(foodName));
+        food.setId(Integer.valueOf(params.get(id)));
+        food.setUpdateTime(DateUtil.now());
 
-        List<FoodList> queryListById =foodChooseMapper.queryListById(foodList);
+        List<Food> queryListById = foodMapper.queryListById(food);
         if (queryListById.size() == 0) {
             return FAILURE;
         } else if (queryListById.size() == 1) {
-            FoodList foodList1 = queryListById.get(0);
-            if (foodList1.getFoodName().equals(params.get(foodName))) {
+            Food food1 = queryListById.get(0);
+            if (food1.getFoodName().equals(params.get(foodName))) {
                 return REPEAT;
             } else {
-                int result = foodChooseMapper.updateFoodList(foodList);
+                int result = foodMapper.updateFoodList(food);
                 return result;
             }
         }
@@ -134,12 +133,12 @@ public class FoodChooseServiceImpl implements FoodChooseService {
             logger.error("食品id不能为空");
             throw  new ServerException(ServerError.PARAMETER_CANNOT_BE_NULL, id);
         }
-        FoodList foodList = new FoodList();
-        foodList.setId(Integer.valueOf(params.get(id)));
-        List<FoodList> queryListById = foodChooseMapper.queryListById(foodList);
+        Food food = new Food();
+        food.setId(Integer.valueOf(params.get(id)));
+        List<Food> queryListById = foodMapper.queryListById(food);
         if (queryListById.size() != 0) {
-            foodList.setId(Integer.valueOf(params.get(id)));
-            int result = foodChooseMapper.deleteFoodList(foodList);
+            food.setId(Integer.valueOf(params.get(id)));
+            int result = foodMapper.deleteFoodList(food);
             return result;
         }
         return FAILURE;
@@ -150,9 +149,9 @@ public class FoodChooseServiceImpl implements FoodChooseService {
      * liutao
      */
     private int nameCheck(Map<String, String> params) {
-        FoodList foodList = new FoodList();
-        foodList.setFoodName(params.get(foodName));
-        List<FoodList> queryListByName =foodChooseMapper.queryListByName(foodList);
+        Food food = new Food();
+        food.setFoodName(params.get(foodName));
+        List<Food> queryListByName = foodMapper.queryListByName(food);
         if (queryListByName.size() == 0) {
             return 0;
         } else {
