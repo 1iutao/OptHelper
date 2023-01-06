@@ -1,0 +1,213 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1672906221226') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-all:before {
+  content: "\e6ef";
+}
+
+.icon-copy:before {
+  content: "\e6f3";
+}
+
+.icon-history:before {
+  content: "\e6f8";
+}
+
+.icon-editor:before {
+  content: "\e6f6";
+}
+
+.icon-gift:before {
+  content: "\e6f9";
+}
+
+.icon-pic:before {
+  content: "\e6ff";
+}
+
+.icon-Notvisible:before {
+  content: "\e6fe";
+}
+
+.icon-play:before {
+  content: "\e701";
+}
+
+.icon-similar-product:before {
+  content: "\e707";
+}
+
+.icon-add-account:before {
+  content: "\e741";
+}
+
+.icon-add:before {
+  content: "\e742";
+}
+
+.icon-agriculture:before {
+  content: "\e743";
+}
+
+.icon-years:before {
+  content: "\e744";
+}
+
+.icon-add-cart:before {
+  content: "\e745";
+}
+
+.icon-ashbin:before {
+  content: "\e746";
+}
+
+.icon-bad:before {
+  content: "\e747";
+}
+
+.icon-attachent:before {
+  content: "\e748";
+}
+
+.icon-browse:before {
+  content: "\e749";
+}
+
+.icon-category:before {
+  content: "\e74a";
+}
+
+.icon-conditions:before {
+  content: "\e74b";
+}
+
+.icon-Customermanagement:before {
+  content: "\e74c";
+}
+
+.icon-email:before {
+  content: "\e74f";
+}
+
+.icon-good:before {
+  content: "\e753";
+}
+
+.icon-loading:before {
+  content: "\e756";
+}
+
+.icon-password:before {
+  content: "\e75b";
+}
+
+.icon-QRcode:before {
+  content: "\e75e";
+}
+
+.icon-return:before {
+  content: "\e75f";
+}
+
+.icon-save:before {
+  content: "\e762";
+}
+
+.icon-scanning:before {
+  content: "\e763";
+}
+
+.icon-stop:before {
+  content: "\e767";
+}
+
+.icon-success:before {
+  content: "\e768";
+}
+
+.icon-text:before {
+  content: "\e769";
+}
+
+.icon-upload:before {
+  content: "\e76b";
+}
+
+.icon-set:before {
+  content: "\e76c";
+}
+
+.icon-usercenter:before {
+  content: "\e773";
+}
+
+.icon-unlock:before {
+  content: "\e774";
+}
+
+.icon-vip:before {
+  content: "\e775";
+}
+
+.icon-exchangerate:before {
+  content: "\e772";
+}
+
+.icon-hot-fill:before {
+  content: "\e781";
+}
+
+.icon-shouqi:before {
+  content: "\e7d3";
+}
+
+.icon-zhankai:before {
+  content: "\e7d4";
+}
+
+.icon-nav_icon_shujuchaxun:before {
+  content: "\e614";
+}
+
+.icon-nav_icon_shouye:before {
+  content: "\e615";
+}
+
+.icon-faxian:before {
+  content: "\e604";
+}
+
+.icon-gouwu:before {
+  content: "\e605";
+}
+
+.icon-lvyou:before {
+  content: "\e606";
+}
+
+.icon-dianying:before {
+  content: "\e607";
+}
+
+.icon-beizi:before {
+  content: "\e608";
+}
+
+.icon-chayin:before {
+  content: "\e609";
+}
+
+.icon-xiaodangao:before {
+  content: "\e60a";
+}
+

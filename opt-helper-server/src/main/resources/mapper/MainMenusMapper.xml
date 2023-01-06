@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.common.opthelperserver.dao.MainMenusMapper">
+<!--    菜单信息-->
+    <resultMap id="mainMenusResultMap" type="com.common.opthelperserver.entity.MainMenus">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <collection property="subMenusList" ofType="com.common.opthelperserver.entity.SubMenus">
+            <result column="s_id" property="id"/>
+            <result column="s_title" property="title"/>
+            <result column="mid" property="mid"/>
+            <result column="s_path" property="path"/>
+        </collection>
+    </resultMap>
+<!--    查询菜单-->
+    <select id="getMainMenus" resultMap="mainMenusResultMap">
+        SELECT m.id, m.title, s.id AS s_id, s.title AS s_title, s.mid AS mid, s.path AS s_path
+        FROM main_menus m, sub_menus s
+        WHERE m.id = s.mid
+    </select>
+</mapper>
