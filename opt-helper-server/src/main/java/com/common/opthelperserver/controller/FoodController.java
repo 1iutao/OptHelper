@@ -23,13 +23,19 @@ public class FoodController {
 
     @Autowired
     private FoodService foodService;
-    private Integer FAILURE = 999;
-    private Integer REPEAT = 777;
-    @RequestMapping("/queryFoodList")
-    public ResponseResult queryFoodList(@RequestParam String params) {
+    static final int FAILURE = 999;
+    static final int REPEAT = 777;
+
+    /**
+     * 查询所有
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "/queryFoodList", method = RequestMethod.POST)
+    public ResponseResult queryFoodList(@RequestParam Map<String, String> params) {
         log.info("FoodController ==>queryFoodList() result : {}", params);
 
-        List<Food> food = foodService.queryFoodList();
+        List<Food> food = foodService.queryFoodList(params);
         log.info("FoodController ==>queryFoodList() result : {}", food);
         if (food != null) {
             return ResponseResult.success(food);
@@ -38,6 +44,11 @@ public class FoodController {
         }
     }
 
+    /**
+     * 新增
+     * @param params
+     * @return
+     */
     @RequestMapping("/addFoodList")
     public ResponseResult addFoodList(@RequestParam Map<String, String> params) {
         log.info("FoodController ==>addFoodList() params : {}", params);
@@ -50,6 +61,11 @@ public class FoodController {
         }
     }
 
+    /**
+     * 随机查询n个
+     * @param n
+     * @return
+     */
     @RequestMapping("/queryRandomFoodList")
     public ResponseResult queryRandomFoodList(@RequestParam Integer n) {
 
@@ -62,6 +78,11 @@ public class FoodController {
         }
     }
 
+    /**
+     * 修改
+     * @param params
+     * @return
+     */
     @RequestMapping("/updateFoodList")
     public ResponseResult updateFoodList(@RequestParam Map<String, String> params) {
         log.info("FoodController ==>updateFoodList() params : {}", params);
@@ -78,6 +99,11 @@ public class FoodController {
         }
     }
 
+    /**
+     * 删除
+     * @param params
+     * @return
+     */
     @RequestMapping("/deleteFoodList")
     public ResponseResult deleteFoodList(@RequestParam Map<String, String> params) {
         log.info("FoodController ==>deleteFoodList() params : {}", params);

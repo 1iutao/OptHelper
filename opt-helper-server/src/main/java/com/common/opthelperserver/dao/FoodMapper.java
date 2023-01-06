@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @Author : liutao（eonslt@163.com）
  * @Date : 2022/11/14
- * @Description ...
+ * @Description 食品mapper
  **/
 @Mapper
 public interface FoodMapper {

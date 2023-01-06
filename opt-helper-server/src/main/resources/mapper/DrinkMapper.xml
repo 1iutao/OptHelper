@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.common.opthelperserver.dao.DrinkMapper">
+<!--        饮品列表信息-->
+    <resultMap id="drinkListResultMap" type="com.common.opthelperserver.entity.Drink">
+        <id column="id" property="id"/>
+        <result column="drink_name" property="drinkName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="like_num" property="likeNum"/>
+        <result column="unlike_num" property="unlikeNum"/>
+    </resultMap>
+
+<!--        查询列表-->
+    <select id="queryDrinkList" resultType="com.common.opthelperserver.entity.Drink" resultMap="drinkListResultMap">
+        select *
+        from drink;
+    </select>
+
+<!--        新增-->
+    <insert id="addDrinkList" parameterType="com.common.opthelperserver.entity.Drink">
+        insert into drink (drink_name, create_time, update_time)
+        values (#{drinkName, jdbcType = VARCHAR}, #{createTime, jdbcType = VARCHAR}, #{updateTime, jdbcType = VARCHAR})
+    </insert>
+
+<!--        修改-->
+    <update id="updateDrinkList" parameterType="com.common.opthelperserver.entity.Drink">
+        update drink
+        set drink_name = #{drinkName, jdbcType = VARCHAR},
+            update_time = #{updateTime, jdbcType = VARCHAR}
+        where id = #{id, jdbcType = BIGINT}
+    </update>
+
+<!--        删除-->
+    <delete id="deleteDrinkList" parameterType="com.common.opthelperserver.entity.Drink">
+        delete
+        from drink
+        where id = #{id, jdbcType = BIGINT}
+    </delete>
+
+<!--        通过id查询-->
+    <select id="queryListById" resultMap="drinkListResultMap" parameterType="com.common.opthelperserver.entity.Drink">
+        select *
+        from drink
+        <where>
+            <if test="id != null">
+                and id = #{id, jdbcType = BIGINT}
+            </if>
+        </where>
+    </select>
+
+<!--            通过名称查询-->
+    <select id="queryListByName" resultMap="drinkListResultMap" parameterType="com.common.opthelperserver.entity.Drink">
+        select *
+        from drink
+        <where>
+            <if test="drinkName != null">
+                and drink_name = #{drinkName, jdbcType = VARCHAR}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -31,8 +31,8 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     private RedisUtil redisUtil;
 
-    private Integer FAILURE = 999;
-    private Integer REPEAT = 777;
+    static final int FAILURE = 999;
+    static final int REPEAT = 777;
 
     String foodName = "foodName";
     String id = "id";
@@ -42,7 +42,7 @@ public class FoodServiceImpl implements FoodService {
      * @return foodList
      */
     @Override
-    public List<Food> queryFoodList() {
+    public List<Food> queryFoodList(Map<String, String> params) {
 
         String cacheKey = "foodList";
         if (redisUtil.hasKey(cacheKey)) {

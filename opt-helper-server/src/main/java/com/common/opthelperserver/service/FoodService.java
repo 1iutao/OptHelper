@@ -16,7 +16,7 @@ public interface FoodService {
      * 查询所有
      * @return foodList
      */
-    List<Food> queryFoodList();
+    List<Food> queryFoodList(Map<String, String> params);
 
     /**
      * 随机查询n个
